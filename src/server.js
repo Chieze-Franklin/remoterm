@@ -21,13 +21,16 @@ if (require.main == module) {
     if (portStr && !isNaN(portStr)) {
         port = parseInt(portStr, 10);
 
-        // start ngrok
         (async () => {
+            // start the server
+            // server.timeout = 1000;
+            server.listen(port);
+            
+            // start ngrok
             const url = await ngrok.connect(port);
+
+            // send this url to the server
             console.log(url);
         })();
     }
 }
-
-// server.timeout = 1000;
-server.listen(port);
