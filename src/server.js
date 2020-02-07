@@ -10,10 +10,10 @@ server.on('request', (req, res) => {
     // process command
     const child = spawn('pwd');
 
-    child.stderr.on('data', data => res.end(data));
-    child.stdout.on('data', data => res.end(data));
+    child.stderr.on('data', data => res.write(data));
+    child.stdout.on('data', data => res.write(data));
 
-    // res.end('Hello World!\n');
+    child.on('exit', (code, signal) => res.end('\n\n'))
 });
 
 if (require.main == module) {
