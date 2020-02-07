@@ -8,12 +8,12 @@ server.on('request', (req, res) => {
     res.writeHead(200, { 'content-type': 'text/plain' });
 
     // process command
-    const child = spawn('pwd');
+    const child = spawn('pwd'); // ('ab -c200 -t10 http://localhost:3000/');
 
-    child.stderr.on('data', data => res.write(data));
-    child.stdout.on('data', data => res.write(data));
+    child.stderr.on('data', data => res.end(data));
+    child.stdout.on('data', data => res.end(data));
 
-    child.on('exit', (code, signal) => res.end('\n\n'))
+    // child.on('exit', (code, signal) => res.write('\n\n'))
 });
 
 if (require.main == module) {
