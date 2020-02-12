@@ -12,7 +12,7 @@ server.on('request', (req, res) => {
     if (parsedUrl.query.command) {
         const { command, session } = parsedUrl.query;
 
-        res.write(`${session ? session + '> ' : ''}${command}\n`)
+        res.write(`${session ? session + '$ ' : ''}${command}\n\n`)
 
         // process command
         const child = childProc(command);
