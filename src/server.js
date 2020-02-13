@@ -1,7 +1,6 @@
 const { exec: childProc } = require('child_process');
 const server = require('http').createServer();
 const url = require('url');
-// const querystring = require('querystring');
 
 server.on('request', (req, res) => {
     res.writeHead(200, { 'content-type': 'text/plain' });
